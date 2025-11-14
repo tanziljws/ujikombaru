@@ -1,0 +1,325 @@
+================================================================================
+✅ JURUSAN TO & TPFL SUDAH SEJAJAR DENGAN PPLG & TKJ!
+================================================================================
+
+🔍 MASALAH:
+-----------
+Jurusan TO dan TPFL tidak sejajar dengan PPLG dan TKJ. Grid layout tidak rapi,
+cards tidak align dengan baik.
+
+🛠️ SOLUSI:
+-----------
+Tambahkan Flexbox CSS untuk memastikan semua 4 cards sejajar sempurna dalam
+grid layout 2x2!
+
+📊 PERUBAHAN CSS:
+-----------------
+
+**1. Row Container:**
+```css
+.jurusan-photos .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+```
+Memastikan row menggunakan flexbox dan wrap otomatis.
+
+**2. Card Container:**
+```css
+.jurusan-photos .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+```
+- `display: flex` - Aktifkan flexbox
+- `flex-direction: column` - Susun vertikal
+- `height: 100%` - Gunakan full height parent
+
+**3. Card Body:**
+```css
+.jurusan-photos .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+```
+- `flex: 1` - Expand untuk mengisi space
+- Flexbox untuk consistent layout
+- Start alignment untuk text
+
+**4. Card Image:**
+```css
+.jurusan-photos .card-img-top {
+    flex-shrink: 0;
+}
+```
+- Prevent image dari shrinking
+- Maintain aspect ratio
+
+✨ VISUAL COMPARISON:
+---------------------
+
+BEFORE (Tidak Sejajar):
+┌──────────┐  ┌──────────┐
+│  PPLG    │  │   TKJ    │  ← Row 1: Sejajar
+│          │  │          │
+└──────────┘  └──────────┘
+
+┌──────────┐  ┌──────────┐
+│   TO     │  │   TPFL   │  ← Row 2: TIDAK sejajar!
+│      │   │  │        │ │
+└──────────┘  └──────────┘
+     ↑ Misaligned!
+
+AFTER (Sejajar Sempurna):
+┌──────────┐  ┌──────────┐
+│  PPLG    │  │   TKJ    │  ← Row 1: Sejajar
+│          │  │          │
+└──────────┘  └──────────┘
+
+┌──────────┐  ┌──────────┐
+│   TO     │  │   TPFL   │  ← Row 2: Sejajar! ✅
+│          │  │          │
+└──────────┘  └──────────┘
+
+🎯 GRID LAYOUT:
+---------------
+
+Bootstrap Grid Structure:
+```
+<div class="row g-4">
+  <div class="col-lg-6">  ← PPLG (50% width)
+  <div class="col-lg-6">  ← TKJ  (50% width)
+  <div class="col-lg-6">  ← TO   (50% width)
+  <div class="col-lg-6">  ← TPFL (50% width)
+</div>
+```
+
+With Flexbox:
+- Row: flex container
+- Columns: flex items with equal width
+- Cards: flex containers dengan height 100%
+- Result: Perfect 2x2 grid alignment!
+
+💡 KEUNTUNGAN FLEXBOX:
+----------------------
+
+✅ **Equal Heights:**
+   - Semua cards di row yang sama punya height sama
+   - No misalignment karena content length berbeda
+
+✅ **Responsive:**
+   - Auto wrap ke row baru
+   - Maintain alignment di semua breakpoints
+
+✅ **Consistent Spacing:**
+   - Gap between cards consistent (g-4)
+   - Margin bottom consistent (mb-4)
+
+✅ **Content Distribution:**
+   - Image: Fixed height (200px)
+   - Body: Flexible, expand as needed
+   - Text: Aligned properly
+
+📏 CARD STRUCTURE:
+------------------
+
+Setiap Card:
+```
+┌─────────────────────┐
+│                     │
+│  Image (200px)      │ ← flex-shrink: 0
+│                     │
+├─────────────────────┤
+│  Title (1.1rem)     │
+│  Description        │ ← flex: 1 (expand)
+│                     │
+└─────────────────────┘
+```
+
+Image: Fixed height 200px
+Body: Flexible, fills remaining space
+Text: Consistent font sizes
+
+📱 RESPONSIVE BEHAVIOR:
+-----------------------
+
+**Desktop (≥992px):**
+```
+[PPLG]  [TKJ]
+[TO]    [TPFL]
+```
+2 columns per row
+
+**Tablet (768px-991px):**
+```
+[PPLG]  [TKJ]
+[TO]    [TPFL]
+```
+Still 2 columns (col-md-6)
+
+**Mobile (<768px):**
+```
+[PPLG]
+[TKJ]
+[TO]
+[TPFL]
+```
+1 column per row (stacked)
+
+🔧 HTML STRUCTURE:
+------------------
+
+Semua 4 cards menggunakan class yang sama:
+```html
+<div class="col-lg-6 col-md-6 mb-4">
+  <div class="card h-100">
+    <img class="card-img-top" style="height: 200px; ...">
+    <div class="card-body">
+      <h5 class="card-title">...</h5>
+      <p class="card-text">...</p>
+    </div>
+  </div>
+</div>
+```
+
+Consistency adalah kunci!
+
+✨ CSS PROPERTIES EXPLAINED:
+----------------------------
+
+**display: flex**
+- Enables flexbox layout
+- Children become flex items
+
+**flex-direction: column**
+- Stack items vertically
+- Image on top, body below
+
+**flex-wrap: wrap**
+- Allow items to wrap to next row
+- Essential for responsive grid
+
+**height: 100%**
+- Stretch card to fill column height
+- All cards in same row have equal height
+
+**flex: 1**
+- Grow to fill available space
+- Shrink if needed
+- Flexible sizing
+
+**flex-shrink: 0**
+- Prevent element from shrinking
+- Maintain fixed dimensions
+
+🎯 CARA CEK:
+------------
+
+1. **Refresh halaman dengan cache clear:**
+   ```
+   Ctrl + Shift + R
+   ```
+
+2. **Buka halaman informasi:**
+   ```
+   http://127.0.0.1:8000/public/informasi
+   ```
+
+3. **Scroll ke section JURUSAN**
+
+4. **Verifikasi alignment:**
+   - Row 1: PPLG & TKJ sejajar ✅
+   - Row 2: TO & TPFL sejajar ✅
+   - All cards same height in row ✅
+   - Grid rapi 2x2 ✅
+
+5. **Test responsive:**
+   - Resize browser
+   - Check tablet view
+   - Check mobile view
+   - Alignment maintained ✅
+
+📋 FILES MODIFIED:
+------------------
+
+✅ resources/views/informasi.blade.php
+   - CSS section for .jurusan-photos
+   - Added flexbox properties
+   - Enhanced alignment
+
+🎨 VISUAL DETAILS:
+------------------
+
+**Card Spacing:**
+- Gap between cards: 1.5rem (g-4)
+- Margin bottom: 1.5rem (mb-4)
+- Consistent throughout
+
+**Card Styling:**
+- Border: none
+- Shadow: 0 2px 10px rgba(0,0,0,0.1)
+- Hover shadow: 0 8px 25px rgba(0,0,0,0.15)
+- Hover transform: translateY(-5px)
+
+**Image Styling:**
+- Height: 200px (fixed)
+- Object-fit: contain
+- Background: #f8f9fa
+- Padding: 10px
+- Border-radius: 8px 8px 0 0
+
+**Text Styling:**
+- Title: 1.1rem, font-weight 600
+- Description: 0.9rem, color #6c757d
+- Consistent across all cards
+
+💡 BEST PRACTICES:
+------------------
+
+1. **Use h-100 on cards:**
+   - Ensures equal height in rows
+   - Required for proper alignment
+
+2. **Use flexbox for complex layouts:**
+   - Better than float or inline-block
+   - More control over alignment
+
+3. **Consistent class names:**
+   - All cards use same structure
+   - Easier to maintain & debug
+
+4. **Fixed image heights:**
+   - Prevents misalignment from aspect ratio
+   - object-fit: contain maintains ratio
+
+🎪 TROUBLESHOOTING:
+-------------------
+
+**If cards still not aligned:**
+
+1. Check HTML structure:
+   - All divs properly closed? ✓
+   - Same class names on all items? ✓
+   - Consistent nesting? ✓
+
+2. Check CSS:
+   - Flexbox properties applied? ✓
+   - Height 100% on cards? ✓
+   - No conflicting styles? ✓
+
+3. Clear cache:
+   - Ctrl + Shift + R
+   - Hard refresh
+   - Check in incognito mode
+
+4. Inspect element:
+   - Open DevTools
+   - Check computed styles
+   - Verify flexbox active
+
+================================================================================
+🎉 SEMUA JURUSAN SUDAH SEJAJAR RAPI!
+================================================================================

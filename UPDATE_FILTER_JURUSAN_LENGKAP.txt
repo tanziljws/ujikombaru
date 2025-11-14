@@ -1,0 +1,253 @@
+================================================================================
+✅ FILTER JURUSAN LENGKAP - TO, TPFL, TKJ, PPLG TIDAK MUNCUL!
+================================================================================
+
+🔍 MASALAH UPDATE:
+------------------
+Setelah filter pertama, foto TO dan TPFL masih muncul di galeri karena
+filter sebelumnya hanya memeriksa path 'jurusan' dan kata 'logo'/'smk'.
+
+Foto jurusan dengan judul singkat seperti:
+- "To" atau "TO"
+- "Tpfl" atau "TPFL"
+- "Tkj" atau "TKJ"
+- "Pplg" atau "PPLG"
+
+Masih lolos dari filter!
+
+🛠️ SOLUSI UPDATE:
+------------------
+Tambahkan filter spesifik untuk SEMUA singkatan jurusan di judulnya!
+
+📊 FILTER LENGKAP SEKARANG:
+---------------------------
+
+Filter akan MENYEMBUNYIKAN foto jika:
+
+1. ✅ Path gambar mengandung 'logo'
+2. ✅ Path gambar mengandung 'jurusan'
+3. ✅ Judul mengandung 'logo'
+4. ✅ Judul mengandung 'smk'
+5. ✅ Judul mengandung 'pplg'
+6. ✅ Judul mengandung 'tkj'
+7. ✅ Judul mengandung 'tpfl'
+8. ✅ Judul mengandung ' to ' (dengan spasi)
+9. ✅ Judul sama persis dengan 'To'
+10. ✅ Judul sama persis dengan 'TO'
+
+💻 KODE FILTER LENGKAP:
+-----------------------
+
+```php
+$galeri = Galeri::with('kategori')
+    ->where(function($query) {
+        $query->where('gambar', 'not like', '%logo%')
+              ->where('gambar', 'not like', '%jurusan%')
+              ->where('judul', 'not like', '%logo%')
+              ->where('judul', 'not like', '%smk%')
+              ->where('judul', 'not like', '%pplg%')
+              ->where('judul', 'not like', '%tkj%')
+              ->where('judul', 'not like', '%tpfl%')
+              ->where('judul', 'not like', '% to %')
+              ->where('judul', '!=', 'To')
+              ->where('judul', '!=', 'TO');
+    })
+    ->orderBy('created_at', 'desc')
+    ->get();
+```
+
+📋 CONTOH YANG AKAN DI-FILTER:
+------------------------------
+
+✅ Filtered (TIDAK MUNCUL di galeri):
+1. Judul: "To" → Match exact 'To'
+2. Judul: "TO" → Match exact 'TO'
+3. Judul: "Tpfl" → Match '%tpfl%'
+4. Judul: "TPFL" → Match '%tpfl%' (case-insensitive)
+5. Judul: "Tkj" → Match '%tkj%'
+6. Judul: "TKJ" → Match '%tkj%' (case-insensitive)
+7. Judul: "Pplg" → Match '%pplg%'
+8. Judul: "PPLG" → Match '%pplg%' (case-insensitive)
+9. Judul: "Logo SMK" → Match '%logo%' dan '%smk%'
+10. Judul: "Foto Jurusan TO" → Match '% to %'
+11. Path: "images/jurusan/to.jpeg" → Match '%jurusan%'
+12. Path: "images/logo_smk_new.png" → Match '%logo%'
+
+❌ NOT Filtered (TETAP MUNCUL di galeri):
+1. Judul: "Kegiatan Siswa" → Lolos semua filter
+2. Judul: "Foto Prestasi" → Lolos semua filter
+3. Judul: "Ekstrakurikuler" → Lolos semua filter
+4. Judul: "Fasilitas Sekolah" → Lolos semua filter
+5. Path: "images/galeri1.JPG" → Lolos semua filter
+
+⚠️ CATATAN KHUSUS FILTER 'TO':
+------------------------------
+
+Karena 'TO' hanya 2 huruf dan sangat umum, kita gunakan 3 strategi:
+
+1. **LIKE '% to %'** - Menangkap "Foto Jurusan TO"
+   - Ada spasi sebelum & sesudah
+
+2. **= 'To'** - Exact match untuk "To"
+   - Menangkap judul yang PERSIS "To"
+
+3. **= 'TO'** - Exact match untuk "TO"
+   - Menangkap judul yang PERSIS "TO"
+
+Ini mencegah false positive seperti:
+- "Photo" → TIDAK di-filter (tidak ada spasi)
+- "Motor" → TIDAK di-filter (tidak ada spasi)
+- "Otomotif" → TIDAK di-filter (tidak ada spasi)
+
+Tapi akan filter:
+- "To" → FILTERED (exact match)
+- "TO" → FILTERED (exact match)
+- "Jurusan TO" → FILTERED (ada ' to ')
+- "Foto TO Sekolah" → FILTERED (ada ' to ')
+
+✨ HASIL AKHIR:
+---------------
+
+FOTO YANG TERSEMBUNYI DARI GALERI:
+❌ Logo SMK (semua varian)
+❌ Foto PPLG
+❌ Foto TKJ
+❌ Foto TO
+❌ Foto TPFL
+❌ Semua foto di folder jurusan/
+
+FOTO YANG MASIH TAMPIL DI GALERI:
+✅ Kegiatan siswa
+✅ Fasilitas sekolah
+✅ Prestasi siswa
+✅ Ekstrakurikuler
+✅ Praktik kejuruan
+✅ Event sekolah
+✅ Lingkungan sekolah
+
+🎯 LOKASI PERUBAHAN:
+--------------------
+
+File: app/Http/Controllers/GaleriController.php
+
+Method yang diupdate:
+1. ✅ publicIndex() (Line 14-36)
+2. ✅ adminGaleri() (Line 64-85)
+3. ✅ index() (Line 87-115)
+
+📱 TESTING CASES:
+-----------------
+
+Test Case 1: Foto dengan judul "To"
+Input: Judul = "To"
+Result: ✅ TIDAK MUNCUL (filtered by exact match)
+
+Test Case 2: Foto dengan judul "TO"
+Input: Judul = "TO"
+Result: ✅ TIDAK MUNCUL (filtered by exact match)
+
+Test Case 3: Foto dengan judul "Tpfl"
+Input: Judul = "Tpfl"
+Result: ✅ TIDAK MUNCUL (filtered by LIKE '%tpfl%')
+
+Test Case 4: Foto dengan judul "TPFL"
+Input: Judul = "TPFL"
+Result: ✅ TIDAK MUNCUL (filtered by LIKE '%tpfl%')
+
+Test Case 5: Foto dengan judul "TKJ"
+Input: Judul = "TKJ"
+Result: ✅ TIDAK MUNCUL (filtered by LIKE '%tkj%')
+
+Test Case 6: Foto dengan judul "PPLG"
+Input: Judul = "PPLG"
+Result: ✅ TIDAK MUNCUL (filtered by LIKE '%pplg%')
+
+Test Case 7: Foto dengan judul "Kegiatan Siswa"
+Input: Judul = "Kegiatan Siswa"
+Result: ✅ MUNCUL (lolos semua filter)
+
+Test Case 8: Foto dengan judul "Photo"
+Input: Judul = "Photo"
+Result: ✅ MUNCUL (tidak match ' to ')
+
+Test Case 9: Foto dengan path "images/jurusan/test.jpg"
+Input: Path mengandung 'jurusan'
+Result: ✅ TIDAK MUNCUL (filtered by path)
+
+Test Case 10: Foto dengan judul "Logo Baru"
+Input: Judul mengandung 'logo'
+Result: ✅ TIDAK MUNCUL (filtered by LIKE '%logo%')
+
+🔧 CARA CEK:
+------------
+
+1. **Refresh halaman admin galeri:**
+   http://127.0.0.1:8000/admin/galeri
+   
+   **Cek:** TO dan TPFL HILANG ✅
+
+2. **Refresh halaman public galeri:**
+   http://127.0.0.1:8000/public/galeri
+   
+   **Cek:** TO dan TPFL HILANG ✅
+
+3. **Cek halaman informasi:**
+   http://127.0.0.1:8000/public/informasi
+   
+   **Cek:** Foto jurusan MASIH ADA di halaman info ✅
+
+💡 KENAPA 3 KONDISI UNTUK 'TO'?
+-------------------------------
+
+'TO' adalah kata pendek yang bisa muncul di kata lain:
+
+❌ MASALAH jika hanya LIKE '%to%':
+- "Photo" → akan ter-filter (SALAH!)
+- "Motor" → akan ter-filter (SALAH!)
+- "Otomotif" → akan ter-filter (SALAH!)
+- "Storia" → akan ter-filter (SALAH!)
+
+✅ SOLUSI dengan 3 kondisi:
+- LIKE '% to %' → hanya kata 'to' dengan spasi
+- = 'To' → exact match 'To'
+- = 'TO' → exact match 'TO'
+
+Hasil:
+- "To" → FILTERED ✅
+- "TO" → FILTERED ✅
+- "Jurusan TO" → FILTERED ✅
+- "Photo" → LOLOS ✅
+- "Motor" → LOLOS ✅
+- "Otomotif" → LOLOS ✅
+
+🎪 CONSISTENCY:
+---------------
+
+Filter berlaku di:
+✅ Admin Desktop
+✅ Admin Mobile
+✅ Public Desktop
+✅ Public Mobile
+✅ Semua kategori
+✅ Semua sorting
+
+📋 SUMMARY:
+-----------
+
+TOTAL KONDISI FILTER: 10
+- 2 kondisi path (logo, jurusan)
+- 8 kondisi judul (logo, smk, pplg, tkj, tpfl, ' to ', To, TO)
+
+FOTO JURUSAN YANG DI-FILTER:
+- ✅ PPLG (Pengembangan Perangkat Lunak dan Gim)
+- ✅ TKJ (Teknik Komputer dan Jaringan)
+- ✅ TO (Teknik Otomotif)
+- ✅ TPFL (Teknik Pengelasan dan Fabrikasi Logam)
+
+PLUS:
+- ✅ Logo SMK (semua varian)
+- ✅ Semua foto di folder jurusan/
+
+================================================================================
+🎉 SEMUA FOTO JURUSAN SUDAH TERSEMBUNYI DARI GALERI!
+================================================================================

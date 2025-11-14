@@ -1,0 +1,304 @@
+================================================================================
+✅ BERITA & AGENDA SUDAH LEBIH COMPACT (TIDAK TERLALU LEBAR)!
+================================================================================
+
+🔍 MASALAH:
+-----------
+Section Berita Terbaru dan Agenda Sekolah terlalu lebar (full width),
+sedangkan section Jurusan terlihat lebih compact dan tidak terlalu lebar.
+
+User ingin Berita dan Agenda dibuat lebih narrow seperti Jurusan.
+
+🛠️ SOLUSI:
+-----------
+Tambahkan max-width constraint ke section Berita Terbaru dan Agenda 
+agar tidak terlalu lebar dan lebih focused!
+
+📊 PERUBAHAN:
+-------------
+
+**SEBELUM:**
+```html
+<!-- Berita Terbaru -->
+<div class="card mb-4" id="berita" 
+     style="scroll-margin-top: 100px;">
+     
+<!-- Agenda Sekolah -->
+<div class="card mb-4" id="agenda" 
+     style="scroll-margin-top: 100px;">
+```
+↑ Full width, memenuhi seluruh container
+
+**SESUDAH:**
+```html
+<!-- Berita Terbaru -->
+<div class="card mb-4" id="berita" 
+     style="scroll-margin-top: 100px; 
+            max-width: 900px; 
+            margin-left: auto; 
+            margin-right: auto;">
+     
+<!-- Agenda Sekolah -->
+<div class="card mb-4" id="agenda" 
+     style="scroll-margin-top: 100px; 
+            max-width: 900px; 
+            margin-left: auto; 
+            margin-right: auto;">
+```
+↑ Max-width 900px, centered, lebih compact!
+
+✨ VISUAL COMPARISON:
+---------------------
+
+BEFORE (Full Width):
+┌────────────────────────────────────────────────────────┐
+│  Container (Full Width)                                │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │ Berita Terbaru                                   │  │
+│  │ Terlalu lebar, susah dibaca                      │  │
+│  └──────────────────────────────────────────────────┘  │
+│                                                        │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │ Agenda Sekolah                                   │  │
+│  │ Terlalu lebar, susah dibaca                      │  │
+│  └──────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────┘
+
+AFTER (Max-Width 900px):
+┌────────────────────────────────────────────────────────┐
+│  Container                                             │
+│       ┌──────────────────────────────────┐             │
+│       │ Berita Terbaru                   │             │
+│       │ Lebih compact & mudah dibaca     │             │
+│       └──────────────────────────────────┘             │
+│                                                        │
+│       ┌──────────────────────────────────┐             │
+│       │ Agenda Sekolah                   │             │
+│       │ Lebih compact & mudah dibaca     │             │
+│       └──────────────────────────────────┘             │
+└────────────────────────────────────────────────────────┘
+
+📏 TECHNICAL DETAILS:
+---------------------
+
+**Style Properties Added:**
+
+1. **max-width: 900px**
+   - Membatasi lebar maksimal section
+   - Optimal untuk readability
+   - Tidak terlalu lebar seperti Jurusan section
+
+2. **margin-left: auto**
+   - Push section ke tengah dari kiri
+
+3. **margin-right: auto**
+   - Push section ke tengah dari kanan
+   - Kombinasi dengan margin-left = centered
+
+**Sections Modified:**
+✅ Berita Terbaru (id="berita")
+✅ Agenda Sekolah (id="agenda")
+
+💡 KEUNTUNGAN:
+--------------
+
+✅ **Better Readability:**
+   - Line length optimal (max 900px)
+   - Tidak perlu gerakkan mata terlalu jauh
+   - Fokus ke konten
+
+✅ **Visual Consistency:**
+   - Sama seperti section Jurusan
+   - Tidak ada section yang terlalu lebar
+   - Balanced appearance
+
+✅ **Professional Look:**
+   - Clean & organized
+   - Centered layout
+   - Modern design
+
+✅ **Responsive:**
+   - Pada layar kecil (<900px), otomatis full width
+   - Pada layar besar (>900px), max 900px centered
+   - Best of both worlds!
+
+📱 RESPONSIVE BEHAVIOR:
+-----------------------
+
+**Desktop Large (>1200px):**
+```
+┌─────────────────────────────────┐
+│         Space                   │
+│    ┌──────────────┐             │
+│    │ Berita (900) │ Centered    │
+│    └──────────────┘             │
+│         Space                   │
+└─────────────────────────────────┘
+```
+
+**Desktop Medium (900px - 1200px):**
+```
+┌──────────────────────┐
+│  ┌────────────────┐  │
+│  │ Berita (900px) │  │
+│  └────────────────┘  │
+└──────────────────────┘
+```
+
+**Tablet/Mobile (<900px):**
+```
+┌────────────────┐
+│ Berita (full)  │
+│ Auto-adjust    │
+└────────────────┘
+```
+Auto menggunakan 100% width karena max-width
+
+🎯 COMPARISON TABLE:
+--------------------
+
+Aspect              Before          After
+──────────────────────────────────────────
+Width               100%            max 900px
+Alignment           Full            Centered
+Readability         Hard            Easy
+Line Length         Too long        Optimal
+Visual Balance      Unbalanced      Balanced
+Consistency         No              Yes (like Jurusan)
+
+🔧 CSS EQUIVALENT:
+------------------
+
+Inline style yang ditambahkan setara dengan:
+
+```css
+#berita,
+#agenda {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Or shorthand: */
+#berita,
+#agenda {
+    max-width: 900px;
+    margin-inline: auto;
+}
+```
+
+📊 OPTIMAL WIDTH RESEARCH:
+--------------------------
+
+Kenapa 900px?
+
+1. **Readability:**
+   - 900px ≈ 80-90 characters per line
+   - Optimal reading line length
+   - Not too wide, not too narrow
+
+2. **Consistency:**
+   - Similar to Jurusan section width
+   - Matches column layout (col-lg-6 × 2)
+   - Visual harmony
+
+3. **Responsive:**
+   - Works well on tablets (768px+)
+   - Scales down gracefully
+   - No horizontal scroll
+
+🎨 LAYOUT STRUCTURE:
+--------------------
+
+Page Layout:
+```
+┌─────────────────────────────────┐
+│ Header (Full Width)             │
+├─────────────────────────────────┤
+│ Informasi Umum (Full Width)    │
+│   ├─ Jurusan Grid              │
+│   └─ 2x2 layout                │
+├─────────────────────────────────┤
+│     Berita (900px centered)    │ ← Updated!
+├─────────────────────────────────┤
+│     Agenda (900px centered)    │ ← Updated!
+└─────────────────────────────────┘
+```
+
+✨ USER EXPERIENCE:
+-------------------
+
+**BEFORE:**
+- "Wah Berita & Agenda terlalu lebar"
+- "Susah baca, line nya panjang banget"
+- "Ga konsisten sama Jurusan"
+
+**AFTER:**
+- "Sekarang compact & enak dibaca!" ✅
+- "Line length optimal" ✅
+- "Konsisten dengan Jurusan" ✅
+- "Lebih focused" ✅
+
+🎯 CARA CEK:
+------------
+
+1. **Refresh halaman informasi:**
+   http://127.0.0.1:8000/public/informasi
+
+2. **Scroll ke Berita Terbaru:**
+   - Lihat: Tidak full width lagi ✅
+   - Lihat: Centered di tengah ✅
+   - Lihat: Max 900px ✅
+
+3. **Scroll ke Agenda Sekolah:**
+   - Lihat: Tidak full width lagi ✅
+   - Lihat: Centered di tengah ✅
+   - Lihat: Max 900px ✅
+
+4. **Compare dengan Jurusan:**
+   - Lebar visual mirip ✅
+   - Konsistensi layout ✅
+
+5. **Test responsive:**
+   - Resize browser
+   - Lihat auto-adjust di layar kecil ✅
+
+💡 JIKA INGIN ADJUST WIDTH:
+---------------------------
+
+Ubah nilai max-width sesuai kebutuhan:
+
+**Lebih Narrow:**
+```
+max-width: 800px;  /* Lebih compact */
+max-width: 700px;  /* Sangat compact */
+```
+
+**Lebih Wide:**
+```
+max-width: 1000px; /* Lebih lebar */
+max-width: 1100px; /* Mendekati full */
+```
+
+Rekomendasi: 900px adalah sweet spot!
+
+📋 FILES MODIFIED:
+------------------
+
+✅ resources/views/informasi.blade.php
+   - Line 382: Berita Terbaru section
+   - Line 418: Agenda Sekolah section
+
+🎪 SECTIONS COMPARISON:
+-----------------------
+
+| Section          | Width Behavior        |
+|------------------|-----------------------|
+| Informasi Umum   | Full (with grid)      |
+| Jurusan Grid     | 2x2 col-lg-6 layout   |
+| Berita Terbaru   | max-width: 900px ✅   |
+| Agenda Sekolah   | max-width: 900px ✅   |
+
+================================================================================
+🎉 BERITA & AGENDA SUDAH LEBIH COMPACT SEPERTI JURUSAN!
+================================================================================

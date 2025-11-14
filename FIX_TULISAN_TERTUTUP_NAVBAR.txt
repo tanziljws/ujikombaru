@@ -1,0 +1,93 @@
+================================================================================
+✅ TULISAN TIDAK LAGI TERTUTUP NAVBAR!
+================================================================================
+
+🔍 MASALAH:
+-----------
+Tulisan "Selamat Datang di Galerry SMKN 4 Bogor" di homepage tertutup oleh 
+navbar yang fixed di atas (navbar menghalangi judul hero section).
+
+🛠️ SOLUSI YANG DITERAPKAN:
+---------------------------
+1. ✅ Tambah padding-top di .hero-section:
+   - padding-top: 100px
+   - Memberi jarak dari atas agar tidak tertutup navbar
+
+2. ✅ Tambah padding-top di .hero-text-overlay:
+   - padding-top: 100px
+   - Memastikan konten teks turun ke bawah navbar
+
+3. ✅ Hapus background box hitam:
+   - Dihapus: background, padding, border-radius dari h1, h2, p
+   - Tetap pakai: text-shadow yang kuat untuk visibility
+
+4. ✅ Text shadow tetap diperkuat:
+   - Multiple layers shadow untuk keterbacaan
+   - Drop shadow filter untuk depth
+
+📊 PERUBAHAN DETAIL:
+--------------------
+
+.hero-section {
+    min-height: 100vh;
+    position: relative;
+    padding-top: 100px;  ← DITAMBAHKAN
+}
+
+.hero-text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    background: transparent;
+    padding-top: 100px;  ← DITAMBAHKAN
+}
+
+.hero-content h1 {
+    /* Background box DIHAPUS */
+    /* Hanya text-shadow yang kuat */
+    text-shadow: 6px 6px 20px rgba(0,0,0,1), ...
+    filter: drop-shadow(0 0 25px rgba(0,0,0,0.8));
+}
+
+✨ HASIL:
+---------
+- ✅ Tulisan tidak lagi tertutup navbar
+- ✅ Jarak cukup dari top navbar (100px)
+- ✅ Tulisan tetap jelas dengan text shadow
+- ✅ Tampilan lebih clean tanpa background box
+
+🎯 CARA CEK:
+------------
+1. Refresh homepage: Ctrl + F5
+2. Buka: http://127.0.0.1:8000
+3. Lihat: Tulisan sekarang tidak tertutup navbar
+4. Scroll: Navbar tetap fixed, tapi tulisan terlihat penuh
+
+📱 RESPONSIVE:
+--------------
+Padding akan otomatis adjust di:
+- Desktop: 100px dari atas
+- Tablet: 100px dari atas
+- Mobile: 100px dari atas
+
+💡 CATATAN:
+-----------
+- Navbar height ≈ 90-100px
+- Padding-top 100px memastikan clearance yang cukup
+- Text shadow tetap kuat untuk visibility
+- Tidak ada background box yang mengganggu estetika
+
+⚙️ JIKA MASIH TERTUTUP:
+-----------------------
+Jika di device tertentu masih tertutup, tinggal tambah padding-top:
+- Dari: 100px
+- Ke: 120px atau 150px
+
+================================================================================
+🎉 TULISAN SUDAH TIDAK TERTUTUP NAVBAR!
+================================================================================

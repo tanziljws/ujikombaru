@@ -1,0 +1,98 @@
+================================================================================
+✅ MASALAH FOTO JURUSAN SUDAH DIPERBAIKI!
+================================================================================
+
+🔍 MASALAH YANG TERJADI:
+------------------------
+- Saat hapus foto dari GALERI, file fisiknya juga ikut terhapus
+- Foto jurusan di halaman INFORMASI menggunakan file yang sama
+- Akibatnya: Hapus foto di galeri → Foto jurusan juga hilang ❌
+
+🛠️ SOLUSI YANG DITERAPKAN:
+---------------------------
+1. ✅ Buat folder terpisah: public/images/jurusan/
+2. ✅ Update path foto jurusan: images/jurusan/pplg.jpeg, dll
+3. ✅ Tambah fallback: Jika foto di jurusan/ tidak ada, gunakan images/
+4. ✅ Sekarang foto jurusan AMAN dari penghapusan galeri
+
+📁 STRUKTUR FOLDER BARU:
+------------------------
+public/
+└── images/
+    ├── jurusan/          ← FOLDER BARU untuk foto jurusan
+    │   ├── pplg.jpeg
+    │   ├── tkj.jpeg
+    │   ├── to.jpeg
+    │   └── tpfl.jpeg
+    │
+    └── (foto lainnya)    ← Foto galeri tetap di sini
+
+🔧 LANGKAH YANG HARUS DILAKUKAN:
+--------------------------------
+1. COPY foto jurusan ke folder baru:
+   
+   DARI: public/images/pplg.jpeg
+   KE:   public/images/jurusan/pplg.jpeg
+   
+   DARI: public/images/tkj.jpeg
+   KE:   public/images/jurusan/tkj.jpeg
+   
+   DARI: public/images/to.jpeg
+   KE:   public/images/jurusan/to.jpeg
+   
+   DARI: public/images/tpfl.jpeg
+   KE:   public/images/jurusan/tpfl.jpeg
+
+2. Cara COPY (pilih salah satu):
+
+   Opsi A - Via File Explorer:
+   - Buka folder: C:\xampp\htdocs\projekafter_eror\public\images
+   - Copy file: pplg.jpeg, tkj.jpeg, to.jpeg, tpfl.jpeg
+   - Paste ke folder: jurusan\
+   
+   Opsi B - Via Command Prompt:
+   - Buka Command Prompt di folder project
+   - Jalankan command berikut:
+   
+   copy public\images\pplg.jpeg public\images\jurusan\
+   copy public\images\tkj.jpeg public\images\jurusan\
+   copy public\images\to.jpeg public\images\jurusan\
+   copy public\images\tpfl.jpeg public\images\jurusan\
+
+3. Refresh halaman informasi untuk cek hasilnya
+
+✅ HASIL SETELAH PERBAIKAN:
+---------------------------
+- ✅ Hapus foto di GALERI → Hanya hapus dari galeri
+- ✅ Foto JURUSAN tetap aman di halaman Informasi
+- ✅ Kedua sistem terpisah, tidak saling ganggu
+- ✅ Admin bebas kelola galeri tanpa takut foto jurusan hilang
+
+🎯 CARA KERJA BARU:
+-------------------
+Halaman Informasi Jurusan:
+→ Cari di: public/images/jurusan/pplg.jpeg
+→ Jika tidak ada: Fallback ke public/images/pplg.jpeg
+
+Halaman Galeri:
+→ Gunakan: public/images/ (untuk foto yang diupload admin)
+→ Hapus foto: Hanya hapus dari database & folder images/
+→ Tidak akan menghapus foto di jurusan/
+
+📝 CATATAN PENTING:
+-------------------
+1. Folder jurusan/ HANYA untuk foto jurusan
+2. Jangan upload foto galeri ke folder jurusan/
+3. Jika foto jurusan hilang, cek folder jurusan/ terlebih dahulu
+4. Admin tetap bisa update foto jurusan via panel admin
+
+⚠️ PERINGATAN:
+--------------
+Jika foto jurusan belum di-copy ke folder jurusan/:
+- Foto akan tetap tampil (gunakan fallback)
+- Tapi masih berisiko terhapus jika nama sama dengan foto galeri
+- SEGERA copy foto jurusan ke folder jurusan/ untuk keamanan!
+
+================================================================================
+🎉 SEKARANG FOTO JURUSAN AMAN DARI PENGHAPUSAN GALERI!
+================================================================================
